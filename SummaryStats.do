@@ -131,5 +131,36 @@ tabulate age05, summarize(gi118re)
 tabulate age75, summarize(ri009re)
 tabulate age05, summarize(gi119re)
 
+// Generates a table of retirement status and what age the individual is
+tabulate rw022red age05
+
+// Generates a table of educational level and cognition scores from 2005 
+// shows a higher percentage of individuals with higher education results in higher cognitive scores
+tabulate gb103red ri002re
+tabulate gb103red ri004re
+tabulate gb103red ri005re 
+tabulate gb103red ri003re 
+tabulate gb103red ri008re 
+tabulate gb103red ri009re
+
+
+// Generates a table of relationship between self reported health and cognitive scores 
+// mx001rer is the variable 
+
+tabulate mx001rer ri002re
+tabulate mx001rer ri004re
+tabulate mx001rer ri005re
+tabulate mx001rer ri003re
+tabulate mx001rer ri008re
+tabulate mx001rer ri009re
+
+tabulate nx001rer ri002re
+tabulate nx001rer ri004re
+tabulate nx001rer ri005re
+tabulate nx001rer ri003re
+tabulate nx001rer ri008re
+tabulate nx001rer ri009re
+
+
 
 
