@@ -1,4 +1,8 @@
-numlabel, add 
+// Use the following link to access data via Box: 
+// https://uwmadison.box.com/s/929nk193fyu2s99wa7fz2kkl183da3fo
+
+
+/*numlabel, add 
 // Link for missing codes: https://stats.idre.ucla.edu/stata/faq/how-can-i-recode-missing-values-into-different-categories/
 // Step 1: classify non score responses as missing 
 // Run the following code to create missing variables of nonscore responses 
@@ -28,7 +32,7 @@ generate na004 = gi116re - ri003re
 
 generate na005 = gi118re - ri008re
 
-generate na006 = gi119re - ri009re
+generate na006 = gi119re - ri009re */
 
 table age05, contents(mean na001 sd na001 sum na001 )
 
