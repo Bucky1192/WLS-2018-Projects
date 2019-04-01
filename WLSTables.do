@@ -72,34 +72,48 @@ tabulate age75, summarize(ri009re)
 tabulate age05, summarize(gi119re)
 
 // Generates a table of retirement status and what age the individual is
-tabulate rw022red age05
+tabulate rw022red, summarize(age05)
 
 // Generates a table of educational level and cognition scores from 2005 
 // shows a higher percentage of individuals with higher education results in higher cognitive scores
-tabulate gb103red ri002re
-tabulate gb103red ri004re
-tabulate gb103red ri005re 
-tabulate gb103red ri003re 
-tabulate gb103red ri008re 
-tabulate gb103red ri009re
+tabulate gb103red, summarize(ri002re)
+tabulate gb103red, summarize(ri004re)
+tabulate gb103red, summarize(ri005re) 
+tabulate gb103red, summarize(ri003re) 
+tabulate gb103red, summarize(ri008re) 
+tabulate gb103red, summarize(ri009re)
 
 
 // Generates a table of relationship between self reported health and cognitive scores 
 // mx001rer is the variable 
 
-tabulate mx001rer ri002re
-tabulate mx001rer ri004re
-tabulate mx001rer ri005re
-tabulate mx001rer ri003re
-tabulate mx001rer ri008re
-tabulate mx001rer ri009re
+reg ri002re age05 gx201re
+reg ri004re age05 gx201re
+reg ri005re age05 gx201re
+reg ri003re age05 gx201re
+reg ri008re age05 gx201re
+reg ri009re age05 gx201re
 
-tabulate nx001rer ri002re
-tabulate nx001rer ri004re
-tabulate nx001rer ri005re
-tabulate nx001rer ri003re
-tabulate nx001rer ri008re
-tabulate nx001rer ri009re
+reg ri002re age05 nx001rer
+reg ri004re age05 nx001rer
+reg ri005re age05 nx001rer
+reg ri003re age05 nx001rer
+reg ri008re age05 nx001rer
+reg ri009re age05 nx001rer
+
+tabulate gx201re, summarize(ri002re)
+tabulate gx201re, summarize(ri004re)
+tabulate gx201re, summarize(ri005re)
+tabulate gx201re, summarize(ri003re)
+tabulate gx201re, summarize(ri008re)
+tabulate mx001rer, summarize(ri009re)
+
+tabulate nx001rer, summarize(ri002re)
+tabulate nx001rer, summarize(ri004re)
+tabulate nx001rer, summarize(ri005re)
+tabulate nx001rer, summarize(ri003re)
+tabulate nx001rer, summarize(ri008re)
+tabulate nx001rer, summarize(ri009re)
 
 
 
