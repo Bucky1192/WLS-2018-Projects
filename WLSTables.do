@@ -19,6 +19,7 @@ mvdecode gi111re gi113re gi115re gi116re gi118re gi119re, mv(-4 = .c \ -3 = .d \
 // Create new variable for age in 2011 when cognition scores were collected 
 generate age11 = age75+36
 generate age05 = age75+30
+generate age93 = age75+18
 
 // Generate new variables for cognition scores. This is the difference in scores from the most recent from the first score collected. 
 
@@ -36,17 +37,52 @@ generate na006 = gi119re - ri009re */
 
 table age05, contents(mean na001 sd na001 sum na001 )
 
-// Generates a table of average total cognition score by age in 1975
-tabulate age75, summarize(ri001re)
+// gi101re is the total of gi111re, gi113re, gi115re, gi116re, gi118re, gi119re
+// 
 
-// Generates a table of average score for each cognition related questions by age in 2005
-tabulate age05, summarize(gi111re)
-tabulate age05, summarize(gi113re)
-tabulate age05, summarize(gi115re)
-tabulate age05, summarize(gi116re)
-tabulate age05, summarize(gi118re)
-tabulate age05, summarize(gi119re)
+// *** This is the only way I know how to combine so that both ages from the survey waves are in the column 
+table ri001re age75 
 
+
+_________________________________________________________________________________Keep everything below 
+
+// Generates tables on cognition scores based on occupational level 
+
+tabulate gf044jcg, summarize(ri101re)
+tabulate gf044jpg, summarize(ri101re)
+
+
+// Generates a table of average total cognition score by age 
+tabstat ri001re, by(age93) s(mean sd max min)
+tabstat gi101re, by(age05) s(mean sd max min)
+
+// Generates a table of average score for each cognition wave related questions by age and gender in 2005
+tabulate age93 sexrsp, summarize(ri101re)
+tabulate age05 sexrsp, summarize(gi101re)
+
+tabstat ri101re, by(sexrsp) s(mean sd max min)
+tabstat gi101re, by(sexrsp) s(mean sd max min) 
+
+
+// this table is a summary of how scores decrease with age 
+table age05 if rw022red>0, contents( mean gi101re )
+table age93 if rw022red>0, contents (mean ri001re)
+
+// this table is a summary of how scores look for those who are retired 
+table age05 if rw022red==1, contents( mean gi101re )
+
+// this table is a summary of how scores look for those who did not retire (partly retired or currently working)
+table age05 if rw022red>1, contents( mean gi101re )
+//table age93 if rw022red>1, contents (mean ri001re)
+
+// Generates a table of educational level and cognition scores from 2005 
+// shows a higher percentage of individuals with higher education results in higher cognitive scores
+	// cognition score from 1993
+tabulate gb103red, summarize(ri101re)
+	// cognition score from 2005
+tabulate gb103red, summarize(gi101re)
+
+//** THE FOLLOWING PRODUCES DETAILED TABLES OF EACH QUESTION ASKED RELATED TO COGNITION**
 // Generates a table of scores in 1975 and then 2005 for the question "In what way are an orange and a banana alike?"
 tabulate age75, summarize(ri002re)
 tabulate age05, summarize(gi111re)
@@ -71,51 +107,35 @@ tabulate age05, summarize(gi118re)
 tabulate age75, summarize(ri009re)
 tabulate age05, summarize(gi119re)
 
-// Generates a table of retirement status and what age the individual is
-tabulate rw022red, summarize(age05)
-
-// Generates a table of educational level and cognition scores from 2005 
-// shows a higher percentage of individuals with higher education results in higher cognitive scores
-tabulate gb103red, summarize(ri002re)
-tabulate gb103red, summarize(ri004re)
-tabulate gb103red, summarize(ri005re) 
-tabulate gb103red, summarize(ri003re) 
-tabulate gb103red, summarize(ri008re) 
-tabulate gb103red, summarize(ri009re)
-
 
 // Generates a table of relationship between self reported health and cognitive scores 
 // mx001rer is the variable 
 
-reg ri002re age05 gx201re
-reg ri004re age05 gx201re
-reg ri005re age05 gx201re
-reg ri003re age05 gx201re
-reg ri008re age05 gx201re
-reg ri009re age05 gx201re
+reg ri101re age05 gx201re
+reg gi101re age05 gx201re
 
-reg ri002re age05 nx001rer
-reg ri004re age05 nx001rer
-reg ri005re age05 nx001rer
-reg ri003re age05 nx001rer
-reg ri008re age05 nx001rer
-reg ri009re age05 nx001rer
 
-tabulate gx201re, summarize(ri002re)
-tabulate gx201re, summarize(ri004re)
-tabulate gx201re, summarize(ri005re)
-tabulate gx201re, summarize(ri003re)
-tabulate gx201re, summarize(ri008re)
-tabulate mx001rer, summarize(ri009re)
+reg ri101re age93 mx001rer
+reg gi101re age93 mx001rer
 
-tabulate nx001rer, summarize(ri002re)
-tabulate nx001rer, summarize(ri004re)
-tabulate nx001rer, summarize(ri005re)
-tabulate nx001rer, summarize(ri003re)
-tabulate nx001rer, summarize(ri008re)
-tabulate nx001rer, summarize(ri009re)
+
+tabulate gx201re, summarize(ri101re)
+tabulate gx201re, summarize(gi101re)
+
+
+tabulate mx001rer, summarize(ri101re)
+tabulate mx001rer, summarize(gi101re)
 
 
 
+// gx201re: general self reported health collected in 2004/2005
+// nx001rer: general self reported health collected in 1993-1994
+// gi101re: 6-item score for the Cognition Similarities section. 2005
+// ri101re: total cognition of 6 point questions that were asked again in each wave
+// ri001re: total cognition of all questions asked in 1993 
+// gf044jcg: 1990 Major occupation code for last or only job in current or last employment spell.
+// gf044jpg: 1990 Major occupation code for last or only job in pre-retirement spell.
+// hf002js: current employment status in 2011
+// hf015j1d: 1990 Census detailed occupation code for first or only job in Participant’s first employer job spell. collected in 2011
 
 
